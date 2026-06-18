@@ -11,8 +11,10 @@ import TaskForm from "./components/TaskForm";
 import TaskDetail from "./components/TaskDetail";
 import TaskFilter from "./components/TaskFilter";
 import ConfirmDialog from "./components/ConfirmDialog";
+import Landing from "./components/Landing";
 
 export default function App() {
+  const [view, setView] = useState<"landing" | "app">("landing");
   const [tasks, setTasks] = useState<Task[]>([]);
   const [statusFilter, setStatusFilter] = useState<TaskStatus | "">("");
   const [loading, setLoading] = useState(true);
@@ -22,7 +24,7 @@ export default function App() {
   const [taskToView, setTaskToView] = useState<Task | null>(null);
   const [taskToDelete, setTaskToDelete] = useState<Task | null>(null);
 
-  // Stats — always from full list regardless of filter
+
   const [allTasks, setAllTasks] = useState<Task[]>([]);
 
   const fetchTasks = useCallback(async () => {
@@ -83,12 +85,18 @@ export default function App() {
     completed: allTasks.filter((t) => t.status === TaskStatus.COMPLETED).length,
   };
 
+  if (view === "landing") {
+    return <Landing onEnterApp={() => setView("app")} stats={stats} />;
+  }
+
   return (
     <div className="min-h-screen bg-slate-50">
-      {/* Top nav bar */}
       <header className="bg-white border-b border-slate-100 sticky top-0 z-10">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
+          <button
+            onClick={() => setView("landing")}
+            className="flex items-center gap-2.5 hover:opacity-85 transition cursor-pointer text-left bg-transparent border-0 p-0"
+          >
             <div className="w-7 h-7 rounded-lg bg-indigo-600 flex items-center justify-center">
               <svg
                 className="w-4 h-4 text-white"
@@ -107,74 +115,62 @@ export default function App() {
             <span className="font-bold text-slate-800 tracking-tight">
               TaskFlow
             </span>
-          </div>
-          <button
-            onClick={() => {
-              setTaskToEdit(null);
-              setShowForm(true);
-            }}
-            className="flex items-center gap-1.5 px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-xl hover:bg-indigo-700 transition shadow-sm shadow-indigo-200"
-          >
-            <svg
-              className="w-4 h-4"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2.5}
-                d="M12 4v16m8-8H4"
-              />
-            </svg>
-            New task
           </button>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => setView("landing")}
+              className="text-xs font-semibold text-slate-500 hover:text-indigo-600 transition px-3 py-2 rounded-lg hover:bg-slate-50"
+            >
+              Back to Home
+            </button>
+            <button
+              onClick={() => {
+                setTaskToEdit(null);
+                setShowForm(true);
+              }}
+              className="flex items-center gap-1.5 px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-xl hover:bg-indigo-700 transition shadow-sm shadow-indigo-200"
+            >
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2.5}
+                  d="M12 4v16m8-8H4"
+                />
+              </svg>
+              New task
+            </button>
+          </div>
         </div>
       </header>
 
       <main className="max-w-5xl mx-auto px-4 sm:px-6 py-8">
-        {/* Stat cards */}
-        <div className="grid grid-cols-4 gap-3 mb-8">
-          {[
-            {
-              label: "Total",
-              value: stats.total,
-              color: "text-slate-800",
-              bg: "bg-white",
-            },
-            {
-              label: "Pending",
-              value: stats.pending,
-              color: "text-amber-600",
-              bg: "bg-amber-50",
-            },
-            {
-              label: "In Progress",
-              value: stats.inProgress,
-              color: "text-indigo-600",
-              bg: "bg-indigo-50",
-            },
-            {
-              label: "Completed",
-              value: stats.completed,
-              color: "text-emerald-600",
-              bg: "bg-emerald-50",
-            },
-          ].map((stat) => (
-            <div
-              key={stat.label}
-              className={`${stat.bg} rounded-2xl border border-slate-100 px-4 py-4`}
-            >
-              <p className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">
-                {stat.label}
-              </p>
-              <p className={`text-2xl font-bold ${stat.color}`}>{stat.value}</p>
+        <div className="bg-white rounded-3xl border border-slate-100 p-6 shadow-sm mb-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center divide-y md:divide-y-0 md:divide-x divide-slate-100">
+            <div className="pt-2 md:pt-0">
+              <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Total Tasks</p>
+              <p className="text-3xl font-extrabold text-slate-800">{stats.total}</p>
             </div>
-          ))}
+            <div className="pt-4 md:pt-0 md:pl-4">
+              <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Pending</p>
+              <p className="text-3xl font-extrabold text-amber-600">{stats.pending}</p>
+            </div>
+            <div className="pt-4 md:pt-0 md:pl-4">
+              <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">In Progress</p>
+              <p className="text-3xl font-extrabold text-indigo-600">{stats.inProgress}</p>
+            </div>
+            <div className="pt-4 md:pt-0 md:pl-4">
+              <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Completed</p>
+              <p className="text-3xl font-extrabold text-emerald-600">{stats.completed}</p>
+            </div>
+          </div>
         </div>
 
-        {/* Filter + count row */}
         <div className="flex items-center justify-between mb-4">
           <TaskFilter value={statusFilter} onChange={setStatusFilter} />
           {!loading && (
@@ -184,7 +180,6 @@ export default function App() {
           )}
         </div>
 
-        {/* Main content */}
         {loading ? (
           <div className="bg-white rounded-2xl border border-slate-100 py-20 text-center">
             <div className="w-8 h-8 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin mx-auto mb-3" />
@@ -229,7 +224,6 @@ export default function App() {
         )}
       </main>
 
-      {/* Modals */}
       {showForm && (
         <TaskForm
           taskToEdit={taskToEdit}
