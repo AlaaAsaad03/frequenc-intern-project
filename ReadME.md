@@ -1,11 +1,11 @@
-git rm frequenc-intern-project-brief.pdf# TaskFlow — Frequenc Internship Assessment
+# TaskFlow — Frequenc Internship Assessment
 
 A full-stack task management application built as part of the Frequenc internship assessment. The application allows users to create, view, update, filter, search, and delete tasks through a clean, modern interface backed by a RESTful API.
 
 ## Screenshots
 
 ### 1. Landing Page & Statistics Preview
-![Landing Page](screenshots/landing_page.webp)
+![Landing Page](screenshots/landing_page.png)
 
 ### 2. Main Workspace (Task Manager Dashboard)
 ![Task Manager Dashboard](screenshots/dashboard.png)
