@@ -19,24 +19,44 @@ export default function Landing({
       {/* Top Header */}
       <header className="border-b border-slate-100 bg-white/80 backdrop-blur-md sticky top-0 z-50">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl bg-indigo-600 flex items-center justify-center shadow-md shadow-indigo-200">
-              <svg
-                className="w-4.5 h-4.5 text-white"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2.5}
-                  d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"
-                />
-              </svg>
-            </div>
-            <span className="font-bold text-lg text-slate-800 tracking-tight">
-              TaskFlow
+          <div className="flex items-center gap-3">
+            <svg
+              className="w-9 h-9 select-none filter drop-shadow-[0_2px_8px_rgba(79,70,229,0.15)] hover:scale-105 transition-transform duration-300"
+              viewBox="0 0 32 32"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <defs>
+                <linearGradient id="logo-g1" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#4f46e5" />
+                  <stop offset="100%" stopColor="#7c3aed" />
+                </linearGradient>
+                <linearGradient id="logo-g2" x1="100%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stopColor="#06b6d4" />
+                  <stop offset="100%" stopColor="#3b82f6" />
+                </linearGradient>
+              </defs>
+              {/* Outer soft dynamic glow ring/loop representing task progress cycle */}
+              <path
+                d="M16 4C9.37 4 4 9.37 4 16C4 22.63 9.37 28 16 28C22.63 28 28 22.63 28 16"
+                stroke="url(#logo-g1)"
+                strokeWidth="3"
+                strokeLinecap="round"
+                strokeDasharray="60 20"
+                className="animate-[spin_20s_linear_infinite]"
+                style={{ transformOrigin: 'center' }}
+              />
+              {/* Creative Inner Checkmark fused with a Flow/Infinity loop */}
+              <path
+                d="M10 16.5L14 20.5L24 9.5"
+                stroke="url(#logo-g2)"
+                strokeWidth="3.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+            <span className="font-extrabold text-xl tracking-tight text-slate-900">
+              Task<span className="bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">Flow</span>
             </span>
           </div>
 
@@ -381,24 +401,42 @@ export default function Landing({
       {/* Footer */}
       <footer className="mt-auto bg-slate-900 text-slate-400 border-t border-slate-800 py-12">
         <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded bg-indigo-600 flex items-center justify-center">
-              <svg
-                className="w-3.5 h-3.5 text-white"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2.5}
-                  d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"
-                />
-              </svg>
-            </div>
-            <span className="font-bold text-white tracking-tight">
-              TaskFlow
+          <div className="flex items-center gap-3">
+            <svg
+              className="w-7 h-7 select-none filter drop-shadow-[0_2px_6px_rgba(79,70,229,0.2)]"
+              viewBox="0 0 32 32"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <defs>
+                <linearGradient id="logo-f-g1" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#4f46e5" />
+                  <stop offset="100%" stopColor="#7c3aed" />
+                </linearGradient>
+                <linearGradient id="logo-f-g2" x1="100%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stopColor="#06b6d4" />
+                  <stop offset="100%" stopColor="#3b82f6" />
+                </linearGradient>
+              </defs>
+              <path
+                d="M16 4C9.37 4 4 9.37 4 16C4 22.63 9.37 28 16 28C22.63 28 28 22.63 28 16"
+                stroke="url(#logo-f-g1)"
+                strokeWidth="3"
+                strokeLinecap="round"
+                strokeDasharray="60 20"
+                className="animate-[spin_20s_linear_infinite]"
+                style={{ transformOrigin: 'center' }}
+              />
+              <path
+                d="M10 16.5L14 20.5L24 9.5"
+                stroke="url(#logo-f-g2)"
+                strokeWidth="3.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+            <span className="font-extrabold text-lg tracking-tight text-white">
+              Task<span className="bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent">Flow</span>
             </span>
           </div>
 

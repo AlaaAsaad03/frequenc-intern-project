@@ -118,25 +118,45 @@ export default function App() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <button
             onClick={() => setView("landing")}
-            className="flex items-center gap-2.5 hover:opacity-85 transition cursor-pointer text-left bg-transparent border-0 p-0"
+            className="flex items-center gap-3 hover:opacity-85 transition cursor-pointer text-left bg-transparent border-0 p-0"
           >
-            <div className="w-7 h-7 rounded-lg bg-indigo-600 flex items-center justify-center">
-              <svg
-                className="w-4 h-4 text-white"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2.5}
-                  d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"
-                />
-              </svg>
-            </div>
-            <span className="font-bold text-slate-800 tracking-tight">
-              TaskFlow
+            <svg
+              className="w-7.5 h-7.5 select-none filter drop-shadow-[0_2px_6px_rgba(79,70,229,0.15)] hover:scale-105 transition-transform duration-300"
+              viewBox="0 0 32 32"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <defs>
+                <linearGradient id="logo-app-g1" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#4f46e5" />
+                  <stop offset="100%" stopColor="#7c3aed" />
+                </linearGradient>
+                <linearGradient id="logo-app-g2" x1="100%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stopColor="#06b6d4" />
+                  <stop offset="100%" stopColor="#3b82f6" />
+                </linearGradient>
+              </defs>
+              {/* Outer soft dynamic glow ring/loop representing task progress cycle */}
+              <path
+                d="M16 4C9.37 4 4 9.37 4 16C4 22.63 9.37 28 16 28C22.63 28 28 22.63 28 16"
+                stroke="url(#logo-app-g1)"
+                strokeWidth="3"
+                strokeLinecap="round"
+                strokeDasharray="60 20"
+                className="animate-[spin_20s_linear_infinite]"
+                style={{ transformOrigin: 'center' }}
+              />
+              {/* Creative Inner Checkmark fused with a Flow/Infinity loop */}
+              <path
+                d="M10 16.5L14 20.5L24 9.5"
+                stroke="url(#logo-app-g2)"
+                strokeWidth="3.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+            <span className="font-extrabold text-lg tracking-tight text-slate-900">
+              Task<span className="bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">Flow</span>
             </span>
           </button>
           <div className="flex items-center gap-3">
