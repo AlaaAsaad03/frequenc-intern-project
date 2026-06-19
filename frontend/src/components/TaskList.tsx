@@ -3,6 +3,7 @@ import StatusBadge from "./StatusBadge";
 
 interface Props {
   tasks: Task[];
+  emptyMessage?: string;
   onView: (task: Task) => void;
   onEdit: (task: Task) => void;
   onDelete: (task: Task) => void;
@@ -14,7 +15,7 @@ const statusIndicatorColor = {
   [TaskStatus.COMPLETED]: "bg-emerald-500",
 };
 
-export default function TaskList({ tasks, onView, onEdit, onDelete }: Props) {
+export default function TaskList({ tasks, emptyMessage, onView, onEdit, onDelete }: Props) {
   if (tasks.length === 0) {
     return (
       <div className="text-center py-20 bg-white rounded-3xl border border-slate-100 shadow-sm">
@@ -33,9 +34,11 @@ export default function TaskList({ tasks, onView, onEdit, onDelete }: Props) {
             />
           </svg>
         </div>
-        <p className="text-slate-800 font-bold mb-1 text-lg">No tasks found</p>
-        <p className="text-slate-505 text-sm text-slate-400">
-          Create your first task to get started
+        <p className="text-slate-700 font-semibold mb-1">
+          {emptyMessage ?? 'No tasks yet'}
+        </p>
+        <p className="text-slate-400 text-sm">
+          {emptyMessage ? 'Try a different search term or filter' : 'Create your first task to get started'}
         </p>
       </div>
     );

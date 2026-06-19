@@ -6,9 +6,14 @@ interface LandingProps {
     inProgress: number;
     completed: number;
   };
+  isConnected: boolean;
 }
 
-export default function Landing({ onEnterApp, stats }: LandingProps) {
+export default function Landing({
+  onEnterApp,
+  stats,
+  isConnected,
+}: LandingProps) {
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col selection:bg-indigo-100 selection:text-indigo-900">
       {/* Top Header */}
@@ -80,7 +85,7 @@ export default function Landing({ onEnterApp, stats }: LandingProps) {
 
       {/* Hero Section */}
       <section className="relative pt-20 pb-16 md:pt-32 md:pb-24 overflow-hidden">
-        
+        {/* Abstract Background Gradients */}
         <div className="absolute top-[-10%] left-[-20%] w-[600px] h-[600px] rounded-full bg-indigo-100/40 blur-3xl -z-10" />
         <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] rounded-full bg-sky-100/40 blur-3xl -z-10" />
 
@@ -132,9 +137,19 @@ export default function Landing({ onEnterApp, stats }: LandingProps) {
                 Real-time status metrics direct from the local workspace
               </p>
             </div>
-            <span className="px-2.5 py-1 rounded-md bg-emerald-50 text-emerald-700 text-xs font-semibold flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping" />
-              Connected
+            <span
+              className={`px-2.5 py-1 rounded-md text-xs font-semibold flex items-center gap-1.5 ${
+                isConnected
+                  ? "bg-emerald-50 text-emerald-700"
+                  : "bg-red-50 text-red-600"
+              }`}
+            >
+              <span
+                className={`w-1.5 h-1.5 rounded-full ${
+                  isConnected ? "bg-emerald-500 animate-ping" : "bg-red-400"
+                }`}
+              />
+              {isConnected ? "Connected" : "Backend offline"}
             </span>
           </div>
 
@@ -192,6 +207,7 @@ export default function Landing({ onEnterApp, stats }: LandingProps) {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
+            {/* Feature 1 */}
             <div className="p-6 rounded-2xl bg-slate-50 hover:bg-indigo-50/50 hover:border-indigo-100 border border-transparent transition group">
               <div className="w-12 h-12 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center mb-6 group-hover:bg-indigo-600 group-hover:text-white transition">
                 <svg
@@ -217,6 +233,7 @@ export default function Landing({ onEnterApp, stats }: LandingProps) {
               </p>
             </div>
 
+            {/* Feature 2 */}
             <div className="p-6 rounded-2xl bg-slate-50 hover:bg-indigo-50/50 hover:border-indigo-100 border border-transparent transition group">
               <div className="w-12 h-12 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center mb-6 group-hover:bg-indigo-600 group-hover:text-white transition">
                 <svg
@@ -242,6 +259,7 @@ export default function Landing({ onEnterApp, stats }: LandingProps) {
               </p>
             </div>
 
+            {/* Feature 3 */}
             <div className="p-6 rounded-2xl bg-slate-50 hover:bg-indigo-50/50 hover:border-indigo-100 border border-transparent transition group">
               <div className="w-12 h-12 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center mb-6 group-hover:bg-indigo-600 group-hover:text-white transition">
                 <svg
@@ -283,6 +301,7 @@ export default function Landing({ onEnterApp, stats }: LandingProps) {
         </div>
 
         <div className="bg-slate-900 rounded-3xl p-4 shadow-xl border border-slate-800/80 max-w-4xl mx-auto relative overflow-hidden group">
+          {/* Decorative Window Controls */}
           <div className="flex gap-1.5 items-center mb-4 px-2">
             <span className="w-3 h-3 rounded-full bg-rose-500/80" />
             <span className="w-3 h-3 rounded-full bg-amber-500/80" />
@@ -292,6 +311,7 @@ export default function Landing({ onEnterApp, stats }: LandingProps) {
             </span>
           </div>
 
+          {/* Fake Workspace Canvas */}
           <div className="bg-slate-950 rounded-2xl p-6 border border-slate-800/40 relative">
             <div className="flex justify-between items-center mb-6">
               <div className="h-6 w-32 rounded bg-slate-800" />
@@ -345,6 +365,7 @@ export default function Landing({ onEnterApp, stats }: LandingProps) {
               ))}
             </div>
 
+            {/* Hover overlay CTA */}
             <div className="absolute inset-0 bg-slate-950/40 backdrop-blur-[2px] flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
               <button
                 onClick={onEnterApp}

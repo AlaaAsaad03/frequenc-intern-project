@@ -14,6 +14,7 @@ export default function TaskForm({ taskToEdit, onSubmit, onCancel }: Props) {
   const [dueDate, setDueDate] = useState("");
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitting, setSubmitting] = useState(false);
+  const [apiError, setApiError] = useState<string | null>(null);
 
   useEffect(() => {
     if (taskToEdit) {
@@ -42,9 +43,12 @@ export default function TaskForm({ taskToEdit, onSubmit, onCancel }: Props) {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
+    
     e.preventDefault();
     if (!validate()) return;
     setSubmitting(true);
+    setApiError(null);
+
     try {
       await onSubmit({
         title: title.trim(),
@@ -52,10 +56,14 @@ export default function TaskForm({ taskToEdit, onSubmit, onCancel }: Props) {
         status,
         dueDate: dueDate || undefined,
       });
+    } catch{
+      setApiError('Something went wrong. Please try again.');
     } finally {
       setSubmitting(false);
     }
   };
+
+ 
 
   const isEditing = !!taskToEdit;
 
@@ -63,7 +71,6 @@ export default function TaskForm({ taskToEdit, onSubmit, onCancel }: Props) {
     `w-full border rounded-xl px-3.5 py-2.5 text-sm text-slate-800 placeholder-slate-400
      focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition
      ${errors[field] ? "border-red-300 bg-red-50" : "border-slate-200 bg-white hover:border-slate-300"}`;
-
   return (
     <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg">
@@ -80,6 +87,7 @@ export default function TaskForm({ taskToEdit, onSubmit, onCancel }: Props) {
         </div>
 
         <form onSubmit={handleSubmit} className="px-6 py-5 space-y-4">
+          
           {/* Title */}
           <div>
             <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">
@@ -183,6 +191,9 @@ export default function TaskForm({ taskToEdit, onSubmit, onCancel }: Props) {
                   : "Create task"}
             </button>
           </div>
+          {apiError && (
+            <p className="text-red-500 text-xs text-center mt-2">{apiError}</p>
+          )}
         </form>
       </div>
     </div>

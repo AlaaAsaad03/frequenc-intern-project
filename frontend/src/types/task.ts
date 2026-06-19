@@ -9,9 +9,9 @@ export type TaskStatus = typeof TaskStatus[keyof typeof TaskStatus];
 export interface Task {
     id: number;
     title: string;
-    description?: string;
+    description?: string | null;
     status: TaskStatus;
-    dueDate: string;
+    dueDate: string | null;
     createdAt: string;
     updatedAt: string;
 }
