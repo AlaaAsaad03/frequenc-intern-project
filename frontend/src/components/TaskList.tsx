@@ -90,22 +90,39 @@ export default function TaskList({ tasks, emptyMessage, onView, onEdit, onDelete
               </div>
 
               {/* Due Date */}
-              <div className="flex items-center gap-1">
-                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-                {task.dueDate ? (
-                  <span className="font-medium text-slate-500">
-                    Due {new Date(task.dueDate).toLocaleDateString("en-US", {
-                      month: "short",
-                      day: "numeric",
-                      year: "numeric",
-                    })}
-                  </span>
-                ) : (
-                  <span>No due date</span>
-                )}
-              </div>
+              {(() => {
+                  const due = task.dueDate ? new Date(task.dueDate) : null;
+
+                  const isOverdue =
+                    due &&
+                    due.getTime() < Date.now() &&
+                  task.status !== TaskStatus.COMPLETED;
+
+                return (
+                  <div className={`flex items-center gap-1.5 px-2 py-0.5 rounded-md text-xs font-semibold ${
+                    isOverdue
+                      ? "text-rose-600 bg-rose-50 border border-rose-100"
+                      : "text-slate-500"
+                  }`}>
+                    <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    {task.dueDate ? (
+                      <span>
+                        {isOverdue ? "Overdue: " : "Due "}
+                        {new Date(task.dueDate).toLocaleDateString("en-US", {
+                          month: "short",
+                          day: "numeric",
+                          year: "numeric",
+                        })}
+                      </span>
+                    ) : (
+                      <span>No due date</span>
+                    )}
+                  </div>
+                );
+              })()}
+
             </div>
           </div>
 

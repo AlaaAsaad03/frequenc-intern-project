@@ -1,4 +1,4 @@
-import type { Task } from "../types/task";
+import { TaskStatus, type Task } from "../types/task";
 import StatusBadge from "./StatusBadge";
 
 interface Props {
@@ -63,21 +63,39 @@ export default function TaskDetail({ task, onClose, onEdit }: Props) {
             </div>
           )}
 
-          {task.dueDate && (
-            <div className="mb-5">
-              <p className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
-                Due date
-              </p>
-              <p className="text-sm text-slate-700 font-medium">
-                {new Date(task.dueDate).toLocaleDateString("en-US", {
-                  weekday: "long",
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })}
-              </p>
+         {task.dueDate && (() => {
+          const due = new Date(task.dueDate);
+
+          const isOverdue =
+            due.getTime() < Date.now() &&
+            task.status !== TaskStatus.COMPLETED;
+
+          return (
+            <div className={`flex items-center gap-2 text-sm font-semibold p-2.5 rounded-xl border ${
+              isOverdue
+                ? "bg-rose-50 border-rose-100 text-rose-700"
+                : "bg-slate-50 border-slate-100 text-slate-600"
+            }`}>
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              <div>
+                <span className="text-xs uppercase tracking-wider block opacity-70">
+                  {isOverdue ? "Overdue Date" : "Due Date"}
+                </span>
+                <span>
+                  {new Date(task.dueDate).toLocaleDateString("en-US", {
+                    weekday: "long",
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </span>
+              </div>
             </div>
-          )}
+          );
+          })()}
+
 
           {/* Timestamps */}
           <div className="border-t border-slate-100 pt-4 mt-4 grid grid-cols-2 gap-3">
