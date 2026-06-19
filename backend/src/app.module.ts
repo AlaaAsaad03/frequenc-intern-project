@@ -14,7 +14,7 @@ import { ConfigModule } from '@nestjs/config';
     TypeOrmModule.forRoot({
       type: 'better-sqlite3',
       database: process.env.NODE_ENV === 'production'
-        ? '/var/data/tasks.sqlite'
+        ? 'database.sqlite'
         : (process.env.DATABASE_NAME || 'tasks.sqlite'),
       entities: [Task],
       synchronize: true,
